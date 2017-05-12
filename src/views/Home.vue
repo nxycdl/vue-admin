@@ -75,9 +75,9 @@
 	export default {
 		data() {
 			return {
-				sysName:'VUEADMIN',
+				sysName:'智慧宫林业管理系统',
 				collapsed:false,
-				sysUserName: '',
+				sysUserName: 'XXX',
 				sysUserAvatar: '',
 				form: {
 					name: '',
