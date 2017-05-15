@@ -13,6 +13,8 @@ import echarts from './views/charts/echarts.vue'
 import employeeList from './viewszhg/employee/employeeList.vue';
 import defaultpage from './viewszhg/defaultpage.vue';
 import officeList from './viewszhg/office/officeList.vue';
+import newsList from './viewszhg/office/newsList.vue';
+import publicMetting from './viewszhg/office/publicMetting.vue';
 
 let routes = [
     {
@@ -76,13 +78,10 @@ let routes = [
         name: '林地信息管理',
         iconCls: 'fa fa-tree',
         children: [
-            {path: '/defaultpage', component: defaultpage, name: '林地1'},
-            {path: '/defaultpage', component: defaultpage, name: '林地2'},
-            {path: '/defaultpage', component: defaultpage, name: '林地3'},
-            {path: '/defaultpage', component: defaultpage, name: '林地4'},
-            {path: '/defaultpage', component: defaultpage, name: '林地5'},
-            {path: '/defaultpage', component: defaultpage, name: '林地6'},
-            {path: '/defaultpage', component: defaultpage, name: '林地7'}
+            {path: '/defaultpage', component: defaultpage, name: '林地信息'},
+            {path: '/defaultpage', component: defaultpage, name: '林地监测'},
+            {path: '/defaultpage', component: defaultpage, name: '林地补偿金'},
+            {path: '/defaultpage', component: defaultpage, name: '林地统计'},
         ]
     },
     {
@@ -114,8 +113,8 @@ let routes = [
         iconCls: 'fa fa-cubes',
         children: [
             {path: '/officeList', component: officeList, name: '基础信息'},
-            {path: '/employeeList', component: employeeList, name: '林场新闻'},
-            {path: '/employeeList', component: employeeList, name: '发布会议'},
+            {path: '/newsList', component: newsList, name: '林场新闻'},
+            {path: '/publicMetting', component: publicMetting, name: '发布会议'},
         ]
     },
     {

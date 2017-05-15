@@ -1,0 +1,14 @@
+[
+    "{{repeat(2, 20)}}",
+    {
+        "id": "{{guid}}",
+
+        "title": "{{firstName}} {{surname}}",
+        "publicdate": "{{date(yyyy-MM-dd hh:mm:ss)}}",
+
+
+        "startdate": "{{date(yyyy-MM-dd hh:mm:ss)}}",
+        "mettingUser":"",
+        "publicUser":""
+         }
+]

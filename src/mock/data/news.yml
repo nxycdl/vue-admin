@@ -1,0 +1,14 @@
+[
+    "{{repeat(2, 20)}}",
+    {
+        "id": "{{guid}}",
+
+        "title": "{{firstName}} {{surname}}",
+        "content":"{{word(3,9)}}",
+        "readcount":0,
+        "publicdate": "{{date(yyyy-MM-dd hh:mm:ss)}}",
+        "publicUser":"{{firstName}}"
+
+
+         }
+]
