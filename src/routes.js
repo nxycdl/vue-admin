@@ -16,6 +16,8 @@ import officeList from './viewszhg/office/officeList.vue';
 import newsList from './viewszhg/office/newsList.vue';
 import publicMetting from './viewszhg/office/publicMetting.vue';
 
+import projectList from './viewszhg/project/projectList.vue'
+
 let routes = [
     {
         path: '/login',
@@ -102,7 +104,7 @@ let routes = [
         name: '项目信息管理',
         iconCls: 'fa fa-deaf',
         children: [
-            {path: '/employeeList', component: employeeList, name: '项目信息'},
+            {path: '/projectList', component: projectList, name: '项目信息'},
             {path: '/employeeList', component: employeeList, name: '项目实施'}
         ]
     },

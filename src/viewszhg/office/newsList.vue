@@ -63,7 +63,7 @@
             <el-table-column type="index" width="55">
             </el-table-column>
             <el-table-column prop="title" label="新闻标题" width="200" sortable></el-table-column>
-            <el-table-column prop="content" label="新闻内容" width="200"></el-table-column>
+            <el-table-column prop="content" label="新闻内容" width="200" :formatter="contentFormat"></el-table-column>
             <el-table-column prop="readcount" label="已读" width="80"></el-table-column>
             <el-table-column prop="publicUser" label="发布人员" min-width="120" sortable>
             </el-table-column>
@@ -214,6 +214,11 @@
             },
             onEditorReady(editor) {
                 console.log('editor ready!', editor)
+            },
+            contentFormat(row,column) {
+                var data = row[column.property];
+                console.log(data);
+                return data.substr(1,20) + '...'
             }
         },
         created() {
