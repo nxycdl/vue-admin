@@ -17,6 +17,11 @@ import newsList from './viewszhg/office/newsList.vue';
 import publicMetting from './viewszhg/office/publicMetting.vue';
 
 import projectList from './viewszhg/project/projectList.vue'
+import projectstart from './viewszhg/project/projectstart.vue';
+import landcompensation from './viewszhg/landinfo/landcompensation.vue'
+import landinfo from './viewszhg/landinfo/landinfo.vue'
+import landmonitor from './viewszhg/landinfo/landmonitor.vue'
+
 
 let routes = [
     {
@@ -31,8 +36,8 @@ let routes = [
         name: '',
         hidden: true
     },
-    //{ path: '/main', component: Main },
-    {
+    /*{ path: '/main', component: Main },*/
+    /*{
         path: '/',
         component: Home,
         name: '导航一',
@@ -72,7 +77,7 @@ let routes = [
         children: [
             {path: '/echarts', component: echarts, name: 'echarts'}
         ]
-    },
+    },*/
 
     {
         path: '/',
@@ -80,10 +85,11 @@ let routes = [
         name: '林地信息管理',
         iconCls: 'fa fa-tree',
         children: [
-            {path: '/defaultpage', component: defaultpage, name: '林地信息'},
-            {path: '/defaultpage', component: defaultpage, name: '林地监测'},
-            {path: '/defaultpage', component: defaultpage, name: '林地补偿金'},
-            {path: '/defaultpage', component: defaultpage, name: '林地统计'},
+            {path: '/echarts', component: echarts, name: '统计信息'},
+            {path: '/landinfo', component: landinfo, name: '林地信息'},
+            {path: '/landmonitor', component: landmonitor, name: '林地监测'},
+            {path: '/landcompensation', component: landcompensation, name: '重点林区采集'},
+            /*{path: '/defaultpage', component: defaultpage, name: '林地统计'},*/
         ]
     },
     {
@@ -105,7 +111,7 @@ let routes = [
         iconCls: 'fa fa-deaf',
         children: [
             {path: '/projectList', component: projectList, name: '项目信息'},
-            {path: '/employeeList', component: employeeList, name: '项目实施'}
+            {path: '/projectstart', component: projectstart, name: '项目实施'}
         ]
     },
     {

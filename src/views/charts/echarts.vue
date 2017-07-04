@@ -7,12 +7,12 @@
             <el-col :span="12">
                 <div id="chartBar" style="width:100%; height:400px;"></div>
             </el-col>
-            <el-col :span="12">
+            <!--<el-col :span="12">
                 <div id="chartLine" style="width:100%; height:400px;"></div>
             </el-col>
             <el-col :span="12">
                 <div id="chartPie" style="width:100%; height:400px;"></div>
-            </el-col>
+            </el-col>-->
             <el-col :span="24">
                 <a href="http://echarts.baidu.com/examples.html" target="_blank" style="float: right;">more>></a>
             </el-col>
@@ -37,14 +37,14 @@
             drawColumnChart() {
                 this.chartColumn = echarts.init(document.getElementById('chartColumn'));
                 this.chartColumn.setOption({
-                  title: { text: 'Column Chart' },
+                  title: { text: '' },
                   tooltip: {},
                   xAxis: {
-                      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                      data: ["沙柳", "刺槐", "白杨树", "樟子松", "梭梭树", "小叶杨"]
                   },
                   yAxis: {},
                   series: [{
-                      name: '销量',
+                      name: '数量',
                       type: 'bar',
                       data: [5, 20, 36, 10, 10, 20]
                     }]
@@ -78,7 +78,7 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
+                        data: ['沙柳', '刺槐', '白杨树', '樟子松', '梭梭树', '小叶杨']
                     },
                     series: [
                         {

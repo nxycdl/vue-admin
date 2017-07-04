@@ -10,53 +10,36 @@
                     <el-button type="primary" v-on:click="getUsers">查询</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="handleAdd">新增</el-button>
+                    <el-button type="primary" v-on:click="getUsers">调整工程进度</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
 
         <!--列表-->
-        <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange"
+        <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" max-height="700"
                   style="width: 100%;">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column type="index" width="60">
+            <el-table-column type="index" width="50">
             </el-table-column>
-            <el-table-column prop="projectname" label="项目名称" width="120">
-
+            <el-table-column label="操作" width="200" align="center">
+                <template scope="scope">
+                    <el-button type="success" size="small" @click="itemCheck(scope.$index, scope.row)">验收</el-button>
+                    <el-button type="success" size="small" @click="itemCheck(scope.$index, scope.row)">调整进度</el-button>
+                </template>
             </el-table-column>
+            <el-table-column prop="projectname" label="项目名称" width="120"></el-table-column>
             <el-table-column prop="content" label="建设内容" width="120"></el-table-column>
             <el-table-column prop="startdate" label="实施时间" width="120"></el-table-column>
             <el-table-column prop="unit" label="施工单位" width="120"></el-table-column>
-            <el-table-column prop="manager" label="负责人" width="120"></el-table-column>
-            <el-table-column prop="tel" label="联系电话" width="140"></el-table-column>
-            <el-table-column prop="mount" label="投资金额" width="120"></el-table-column>
-            <el-table-column prop="desginmap" label="设计图纸" width="120">
+            <el-table-column label="施工进度" width="2000">
                 <template scope="scope">
-                    <a href="http://pic.to8to.com/ask/day_130619/20130619_d350fb6f6532678df6fb5L7DK5LCK6eO.png" target="_blank"><i class="el-icon-document"></i></a>
+                    <el-steps :space="200" :active="scope.row.detail.active">
+                        <el-step v-for="info in scope.row.detail.infoList":description="info.description"></el-step>
+                    </el-steps>
                 </template>
             </el-table-column>
-            <el-table-column prop="buildmap" label="施工图纸" width="120">
-                <template scope="scope">
-                    <a href="http://pic.to8to.com/ask/day_130619/20130619_d350fb6f6532678df6fb5L7DK5LCK6eO.png" target="_blank"><i class="el-icon-message"></i></a>
-                </template>
-            </el-table-column>
-            <el-table-column prop="report" label="验收报告" width="120">
-                <template scope="scope">
-                    <a href="http://pic.to8to.com/ask/day_130619/20130619_d350fb6f6532678df6fb5L7DK5LCK6eO.png" target="_blank"><i class="el-icon-picture"></i></a>
-                </template>
-            </el-table-column>
-            <el-table-column prop="controlunit" label="监理单位" width="120"></el-table-column>
-            <el-table-column prop="charge" label="负责人" width="120"></el-table-column>
-            <el-table-column prop="chargete" label="联系电话" width="140"></el-table-column>
-            <el-table-column prop="status" label="项目状态" width="120"></el-table-column>
-            <el-table-column prop="process" label="项目进度" width="120"></el-table-column>
-            <el-table-column label="操作" width="150">
-                <template scope="scope">
-                    <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
-                </template>
-            </el-table-column>
+
         </el-table>
 
         <!--工具条-->
@@ -178,6 +161,76 @@
                 <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
             </div>
         </el-dialog>
+        <!--项目验收 -->
+        <el-dialog title="项目验收" v-model="itemCheckFormVisible" :close-on-click-modal="false">
+            <el-form :model="addForm" label-width="80px"   ref="addForm">
+                <el-form-item label="项目名称"prop="name"><el-input v-model="itemCheckForm.projectname" :disabled="true" auto-complete="off"></el-input></el-form-item>
+                <el-form-item label="建设内容"prop="name"><el-input v-model="itemCheckForm.content" :disabled="true"auto-complete="off"></el-input></el-form-item>
+                <el-form-item label="实施时间"prop="name"><el-input v-model="itemCheckForm.startdate" :disabled="true"auto-complete="off"></el-input></el-form-item>
+                <el-form-item label="施工单位"prop="name"><el-input v-model="itemCheckForm.unit" :disabled="true"auto-complete="off"></el-input></el-form-item>
+
+
+
+                <el-form-item label="设计图纸"prop="name">
+                    <el-col :span="6">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :file-list="fileList">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-button type="info" size="small">高拍仪</el-button>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="施工图纸"prop="name">
+                    <el-col :span="6">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :file-list="fileList">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-button type="info" size="small">高拍仪</el-button>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="验收报告"prop="name">
+                    <el-col :span="6">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :file-list="fileList">
+                            <el-button size="small" type="primary">点击上传</el-button>
+                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload>
+                    </el-col>
+                    <el-col :span="5">
+                        <el-button type="info" size="small">高拍仪</el-button>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="是否符合验收条件"prop="name"><el-switch on-text="" off-text="" v-model="itemCheckForm.delivery"></el-switch></el-form-item>
+                <el-form-item label="重要文档是否归档"prop="name"><el-switch on-text="" off-text="" v-model="itemCheckForm.delivery"></el-switch></el-form-item>
+                <el-form-item label="是否存在遗留问题"prop="name"><el-switch on-text="" off-text="" v-model="itemCheckForm.delivery"></el-switch></el-form-item>
+                <el-form-item label="对工程建设的评价和结论"prop="name"><el-input type="textarea" :rows="2" placeholder="工程建设的评价和结论" v-model="itemCheckForm.sugest"></el-input> </el-form-item>
+
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="itemCheckFormVisible = false">取消</el-button>
+                <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+            </div>
+        </el-dialog>
     </section>
 </template>
 
@@ -231,7 +284,9 @@
                     addr: ''
                 },
                 value8:0,
-                fileList:[]
+                fileList:[],
+                itemCheckFormVisible:false,
+                itemCheckForm:{}
 
             }
         },
@@ -379,10 +434,13 @@
 
                 });
             },
-            handlePreview() {
-
-            },
-            handleRemove(){}
+            handlePreview:function() {},
+            handleRemove:function(){},
+            itemCheck(index,row){
+                this.itemCheckFormVisible = true;
+                this.itemCheckForm = Object.assign({}, row);
+                console.log(this.itemCheckForm);
+            }
         },
         created () {
             this.getUsers();
