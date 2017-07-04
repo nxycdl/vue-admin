@@ -8,6 +8,10 @@
                     <el-button type="primary" v-on:click="getList">查询</el-button>
                 </el-form-item>
 
+                <el-form-item>
+                    <el-button type="primary">新增监测点</el-button>
+                </el-form-item>
+
             </el-form>
         </el-col>
         <el-table :data="list" highlight-current-row v-loading="listLoading" @selection-change="selsChange"

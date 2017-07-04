@@ -4,7 +4,7 @@ const LoginUsers = [
     id: 1,
     username: 'admin',
     password: '123456',
-    avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/employee.png',
+    avatar: 'http://api.576tv.com/Uploads/oltz/201606/17/171466163221592834.png',
     name: '管理员'
   }
 ];

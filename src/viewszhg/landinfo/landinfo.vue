@@ -183,7 +183,7 @@
                 </el-dialog>
             </el-form>
         </el-col>
-        <el-table :data="list" highlight-current-row v-loading="listLoading" @selection-change="selsChange"max-height="700"
+        <el-table :data="list" highlight-current-row v-loading="listLoading" @selection-change="selsChange"max-height="400" border
                   style="width: 100%;">
             <el-table-column type="selection" width="40"></el-table-column>
             <el-table-column prop="lbh"   label="林班号" fixed>

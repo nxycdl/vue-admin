@@ -9,9 +9,6 @@
                 <el-form-item>
                     <el-button type="primary" v-on:click="getUsers">查询</el-button>
                 </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" v-on:click="getUsers">调整工程进度</el-button>
-                </el-form-item>
             </el-form>
         </el-col>
 
@@ -25,7 +22,7 @@
             <el-table-column label="操作" width="200" align="center">
                 <template scope="scope">
                     <el-button type="success" size="small" @click="itemCheck(scope.$index, scope.row)">验收</el-button>
-                    <el-button type="success" size="small" @click="itemCheck(scope.$index, scope.row)">调整进度</el-button>
+                    <el-button type="success" size="small" @click="chageItemProcess(scope.$index, scope.row)">调整进度</el-button>
                 </template>
             </el-table-column>
             <el-table-column prop="projectname" label="项目名称" width="120"></el-table-column>
@@ -35,7 +32,7 @@
             <el-table-column label="施工进度" width="2000">
                 <template scope="scope">
                     <el-steps :space="200" :active="scope.row.detail.active">
-                        <el-step v-for="info in scope.row.detail.infoList":description="info.description"></el-step>
+                        <el-step :key="scope.$index" v-for="info in scope.row.detail.infoList":description="info.description"></el-step>
                     </el-steps>
                 </template>
             </el-table-column>
@@ -231,6 +228,26 @@
                 <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog title="调整项目进度" v-model="changeItemProcessFormVisible" :close-on-click-modal="false">
+            <el-form :model="changeItemProcessForm" label-width="80px"   ref="changeItemProcessFormRef">
+                <el-form-item>
+                    <template scope="scope">
+                        <el-steps :space="50" :active="changeItemProcessForm.detail.active" direction="vertical">
+                            <el-step key="index" v-for="(info,index) in changeItemProcessForm.detail.infoList":description="info.description"></el-step>
+                        </el-steps>
+                    </template>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary"  @click="add(1)">+</el-button>
+                    <el-button type="primary"  @click="add(-1)">-</el-button>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="changeItemProcessFormVisible = false">取消</el-button>
+                <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+            </div>
+        </el-dialog>
     </section>
 </template>
 
@@ -239,8 +256,9 @@
     //import NProgress from 'nprogress'
     import {getUserListPage, removeUser, batchRemoveUser, editUser, addUser} from '../../api/api';
     import pageList from '../../mock/data/projectData.json';
+    import ElFormItem from "../../../node_modules/element-ui/packages/form/src/form-item";
     export default {
-        data() {
+        components: {ElFormItem}, data() {
             return {
                 filters: {
                     name: ''
@@ -286,7 +304,9 @@
                 value8:0,
                 fileList:[],
                 itemCheckFormVisible:false,
-                itemCheckForm:{}
+                itemCheckForm:{},
+                changeItemProcessFormVisible:false,
+                changeItemProcessForm:{}
 
             }
         },
@@ -439,7 +459,22 @@
             itemCheck(index,row){
                 this.itemCheckFormVisible = true;
                 this.itemCheckForm = Object.assign({}, row);
-                console.log(this.itemCheckForm);
+
+            },
+            chageItemProcess(index,row){
+
+                this.changeItemProcessFormVisible = true;
+                this.changeItemProcessForm =Object.assign({}, row);
+                console.log(this.changeItemProcessForm);
+            },
+            add(index){
+                this.changeItemProcessForm.detail.active  =this.changeItemProcessForm.detail.active +index;
+                if (this.changeItemProcessForm.detail.active <=1){
+                    this.changeItemProcessForm.detail.active = 1;
+                }
+                if (this.changeItemProcessForm.detail.active >= this.changeItemProcessForm.detail.length ) {
+                    this.changeItemProcessForm.detail.active = this.changeItemProcessForm.detail.length;
+                }
             }
         },
         created () {

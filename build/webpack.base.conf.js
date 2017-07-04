@@ -15,11 +15,11 @@ module.exports = {
         path: config.build.assetsRoot,
         filename: '[name].js',
         // 开发环境使用这个;
-        publicPath: process.env.NODE_ENV === 'production'
+        /*publicPath: process.env.NODE_ENV === 'production'
             ? config.build.assetsPublicPath
-            : config.dev.assetsPublicPath
+            : config.dev.assetsPublicPath*/
         //打包的时候不能注释下面这句；
-        // publicPath: './'
+        publicPath: './'
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -51,11 +51,18 @@ module.exports = {
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000,
-                    name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-                }
+                loaders:[
+                    {
+                        loader: path.resolve(__dirname, 'cssPathResolver')
+                    },
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000,
+                            name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+                        }
+                    }
+                    ]
             }
         ]
     }
