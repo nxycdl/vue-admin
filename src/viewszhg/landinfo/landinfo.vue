@@ -28,7 +28,7 @@
                     <el-button type="primary" @click="handleAdd">录入林地信息</el-button>
                 </el-form-item>
 
-                <el-dialog title="新增林地资源" v-model="addFormVisible" :close-on-click-modal="false">
+                <el-dialog title="新增林地资源" v-model="addFormVisible" :close-on-click-modal="false" size="large">
                     <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 
                         <el-form-item label="林班号">
@@ -175,6 +175,9 @@
                                 <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                             </el-upload>
                         </el-form-item>
+                        <el-form-item label="坐标信息">
+                            <el-input v-model="addForm.name" auto-complete="off"></el-input>
+                        </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click.native="addFormVisible = false">取消</el-button>
@@ -188,7 +191,7 @@
             <el-table-column type="selection" width="40"></el-table-column>
             <el-table-column prop="lbh"   label="林班号" fixed>
                 <template scope="scope">
-                    <a  href="https://mmc.mys.tech/" target="_blank">{{scope.row.lbh}}</a>
+                    <a  href="http://120.26.109.153:8082/zhg.html" target="_blank">{{scope.row.lbh}}</a>
                 </template>
             </el-table-column>
             <el-table-column prop="xbh"   label="小班号" fixed></el-table-column>
@@ -319,7 +322,7 @@
             },
             shwomap(index,row) {
                 console.log(index,row);
-                window.open('https://mmc.mys.tech/');
+                window.open('http://120.26.109.153:8082/zhg.html');
 
             },
             selsChange(sels) {
